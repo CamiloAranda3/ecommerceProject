@@ -13,6 +13,8 @@ import com.icodeap.ecommerceGradle.infrastructure.mapper.UserMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
+
 @Configuration
 public class BeanConfiguration {
 
@@ -31,17 +33,49 @@ public class BeanConfiguration {
         return new ProductMapper() {
             @Override
             public Product toProduct(ProductEntity productEntity) {
-                return null;
+                Product product = new Product();
+
+                product.setId(productEntity.getId());
+                product.setCode(productEntity.getCode());
+                product.setName(productEntity.getName());
+                product.setDescription(productEntity.getDescription());
+                product.setPrice(productEntity.getPrice());
+                product.setUser(userMapper().toUser(productEntity.getUserEntity()));
+                product.setDateCreated(productEntity.getDateCreated());
+                product.setDateUpdated(productEntity.getDateUpdated());
+
+                return product;
             }
 
             @Override
             public Iterable<Product> toProducts(Iterable<ProductEntity> productEntities) {
-                return null;
+
+                ArrayList<Product> products = new ArrayList<>();
+
+                for (ProductEntity productEntity: productEntities) {
+                        products.add(toProduct(productEntity));
+                }
+                return products;
             }
 
             @Override
             public ProductEntity toProductEntity(Product product) {
-                return null;
+
+                UserEntity userEntity = new UserEntity();
+                userEntity.setId(product.getUser().getId());
+
+                ProductEntity productEntity= new ProductEntity();
+
+                productEntity.setId(product.getId());
+                productEntity.setCode(product.getCode());
+                productEntity.setName(product.getName());
+                productEntity.setDescription(product.getDescription());
+                productEntity.setPrice(product.getPrice());
+                productEntity.setDateCreated(product.getDateCreated());
+                productEntity.setDateUpdated(product.getDateUpdated());
+                productEntity.setUserEntity(userEntity);
+
+                return productEntity;
             }
         };
 
@@ -52,7 +86,20 @@ public class BeanConfiguration {
         return new UserMapper() {
             @Override
             public User toUser(UserEntity userEntity) {
-                return null;
+
+                User user = new User();
+                user.setId(userEntity.getId());
+                user.setUserName(userEntity.getUserName());
+                user.setFirstName(userEntity.getFirstName());
+                user.setLastName(userEntity.getLastName());
+                user.setAddress(userEntity.getAddress());
+                user.setCellPhone(userEntity.getCellPhone());
+                user.setDateCreated(userEntity.getDateCreated());
+                user.setEmail(userEntity.getEmail());
+                user.setPassword(userEntity.getPassword());
+                user.setUserType(userEntity.getUserType());
+
+                return user;
             }
 
             @Override
@@ -62,7 +109,21 @@ public class BeanConfiguration {
 
             @Override
             public UserEntity toUserEntity(User user) {
-                return null;
+                UserEntity userEntity = new UserEntity();
+
+                userEntity.setId(user.getId());
+                userEntity.setUserName(user.getUserName());
+                userEntity.setFirstName(user.getFirstName());
+                userEntity.setLastName(user.getLastName());
+                userEntity.setEmail(user.getEmail());
+                userEntity.setAddress(user.getAddress());
+                userEntity.setCellPhone(user.getCellPhone());
+                userEntity.setPassword(user.getPassword());
+                userEntity.setUserType(user.getUserType());
+                userEntity.setDateCreated(user.getDateCreated());
+
+                System.out.println(userEntity.getId());
+                return userEntity;
             }
         };
     }

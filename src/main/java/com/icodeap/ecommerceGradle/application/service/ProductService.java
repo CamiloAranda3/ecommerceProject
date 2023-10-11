@@ -4,6 +4,8 @@ import com.icodeap.ecommerceGradle.application.repository.ProductRepository;
 import com.icodeap.ecommerceGradle.domain.Product;
 import com.icodeap.ecommerceGradle.domain.User;
 
+import java.time.LocalDateTime;
+
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -25,7 +27,23 @@ public class ProductService {
     }
 
     public Product saveProduct(Product product){
-        return this.productRepository.saveProduct(product);
+
+        if(product.getId() == null ){
+            User user = new User();
+            user.setId(1);
+            product.setDateCreated(LocalDateTime.now());
+            product.setDateUpdated(LocalDateTime.now());
+            product.setUser(user);
+            return this.productRepository.saveProduct(product);
+        }else{
+            Product productDB = productRepository.getProductById(product.getId());
+            product.setCode(productDB.getCode());
+            product.setUser(productDB.getUser());
+            product.setDateCreated(productDB.getDateCreated());
+            product.setDateUpdated(LocalDateTime.now());
+
+            return productRepository.saveProduct(product);
+        }
     }
 
     public void deleteProductById(Integer id){

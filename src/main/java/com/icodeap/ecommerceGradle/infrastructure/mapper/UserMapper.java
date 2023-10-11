@@ -1,6 +1,5 @@
 package com.icodeap.ecommerceGradle.infrastructure.mapper;
 
-import ch.qos.logback.core.model.ComponentModel;
 import com.icodeap.ecommerceGradle.domain.User;
 import com.icodeap.ecommerceGradle.infrastructure.entity.UserEntity;
 import org.mapstruct.InheritInverseConfiguration;
@@ -28,7 +27,7 @@ public interface UserMapper {
     User toUser(UserEntity userEntity);
 
     //Metodo que devuelve una lista de Users
-    Iterable<User> toUser( Iterable<UserEntity> userEntities);
+    Iterable<User> toUser(Iterable<UserEntity> userEntities);
 
     //Metodo que devuelve una lista de userEntities
     @InheritInverseConfiguration
