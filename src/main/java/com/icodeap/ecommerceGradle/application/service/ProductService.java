@@ -1,6 +1,7 @@
 package com.icodeap.ecommerceGradle.application.service;
 
 import com.icodeap.ecommerceGradle.application.repository.ProductRepository;
+import com.icodeap.ecommerceGradle.domain.Identifier;
 import com.icodeap.ecommerceGradle.domain.Product;
 import com.icodeap.ecommerceGradle.domain.User;
 
@@ -29,8 +30,9 @@ public class ProductService {
     public Product saveProduct(Product product){
 
         if(product.getId() == null ){
-            User user = new User();
-            user.setId(1);
+
+            User user = User.builder().identifier(Identifier.of(1)).build();
+
             product.setDateCreated(LocalDateTime.now());
             product.setDateUpdated(LocalDateTime.now());
             product.setUser(user);

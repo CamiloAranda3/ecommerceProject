@@ -2,6 +2,7 @@ package com.icodeap.ecommerceGradle.infrastructure.controller;
 
 
 import com.icodeap.ecommerceGradle.application.service.ProductService;
+import com.icodeap.ecommerceGradle.domain.Identifier;
 import com.icodeap.ecommerceGradle.domain.Product;
 import com.icodeap.ecommerceGradle.domain.User;
 import lombok.extern.slf4j.Slf4j;
@@ -40,8 +41,9 @@ public class ProductController {
 
     @GetMapping("/show")
     public String showProduct(Model model){
-        User user = new User();
-        user.setId(1);
+
+        User user = User.builder().identifier(Identifier.of(1)).build();
+
         Iterable<Product> products = productService.getProductByUser(user);
         model.addAttribute("products", products);
         return "admin/products/show";

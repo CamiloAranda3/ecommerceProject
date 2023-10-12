@@ -2,8 +2,7 @@ package com.icodeap.ecommerceGradle.infrastructure.configuration;
 
 import com.icodeap.ecommerceGradle.application.repository.ProductRepository;
 import com.icodeap.ecommerceGradle.application.service.ProductService;
-import com.icodeap.ecommerceGradle.domain.Product;
-import com.icodeap.ecommerceGradle.domain.User;
+import com.icodeap.ecommerceGradle.domain.*;
 import com.icodeap.ecommerceGradle.infrastructure.adapter.ProductCrudRepository;
 import com.icodeap.ecommerceGradle.infrastructure.adapter.ProductRepositoryImpl;
 import com.icodeap.ecommerceGradle.infrastructure.entity.ProductEntity;
@@ -62,7 +61,7 @@ public class BeanConfiguration {
             public ProductEntity toProductEntity(Product product) {
 
                 UserEntity userEntity = new UserEntity();
-                userEntity.setId(product.getUser().getId());
+                userEntity.setId(product.getUser().getIdentifier());
 
                 ProductEntity productEntity= new ProductEntity();
 
@@ -87,19 +86,17 @@ public class BeanConfiguration {
             @Override
             public User toUser(UserEntity userEntity) {
 
-                User user = new User();
-                user.setId(userEntity.getId());
-                user.setUserName(userEntity.getUserName());
-                user.setFirstName(userEntity.getFirstName());
-                user.setLastName(userEntity.getLastName());
-                user.setAddress(userEntity.getAddress());
-                user.setCellPhone(userEntity.getCellPhone());
-                user.setDateCreated(userEntity.getDateCreated());
-                user.setEmail(userEntity.getEmail());
-                user.setPassword(userEntity.getPassword());
-                user.setUserType(userEntity.getUserType());
-
-                return user;
+                return User.builder()
+                        .identifier(Identifier.of(userEntity.getId()))
+                        .username(UserName.of(userEntity.getUserName()))
+                        .firstName(FirstName.of(userEntity.getFirstName()))
+                        .lastName(LastName.of(userEntity.getLastName()))
+                        .email(Email.of(userEntity.getEmail()))
+                        .address(Address.of(userEntity.getEmail()))
+                        .cellPhone(CellPhone.of(userEntity.getCellPhone()))
+                        .password(Password.of(userEntity.getPassword()))
+                        .dateCreated(DateCreated.of(userEntity.getDateCreated()))
+                        .build();
             }
 
             @Override
@@ -111,7 +108,7 @@ public class BeanConfiguration {
             public UserEntity toUserEntity(User user) {
                 UserEntity userEntity = new UserEntity();
 
-                userEntity.setId(user.getId());
+                userEntity.setId(user.getIdentifier());
                 userEntity.setUserName(user.getUserName());
                 userEntity.setFirstName(user.getFirstName());
                 userEntity.setLastName(user.getLastName());
@@ -119,7 +116,7 @@ public class BeanConfiguration {
                 userEntity.setAddress(user.getAddress());
                 userEntity.setCellPhone(user.getCellPhone());
                 userEntity.setPassword(user.getPassword());
-                userEntity.setUserType(user.getUserType());
+                //userEntity.setUserType(user.getUserType());
                 userEntity.setDateCreated(user.getDateCreated());
 
                 System.out.println(userEntity.getId());
