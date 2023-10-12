@@ -12,7 +12,7 @@ import org.mapstruct.Mapping;
 public interface UserMapper {
     @Mappings({
             // Se mapea del source userEntity a el target User
-          @Mapping(source = "id", target = "id"),
+          @Mapping(source = "id", target = "identifier"),
           @Mapping(source = "userName", target= "userName"),
           @Mapping(source = "firstName", target= "firstName"),
           @Mapping(source = "lastName", target= "lastName"),

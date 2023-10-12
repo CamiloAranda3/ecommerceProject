@@ -14,9 +14,9 @@ public class UserName {
 
     public UserName(String value) {
 
-        if(StringUtils.isEmpty(value)){
-            throw new InvalidParameterException("UserName must have a value");
-        }
+        //if(StringUtils.isEmpty(value)){
+           // throw new InvalidParameterException("UserName must have a value");
+       // }
 
         this.value = value;
     }

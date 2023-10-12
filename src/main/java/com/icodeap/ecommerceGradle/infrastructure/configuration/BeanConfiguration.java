@@ -109,8 +109,11 @@ public class BeanConfiguration {
                 UserEntity userEntity = new UserEntity();
 
                 userEntity.setId(user.getIdentifier());
+                System.out.println(userEntity.getId());
                 userEntity.setUserName(user.getUserName());
+                System.out.println(userEntity.getUserName());
                 userEntity.setFirstName(user.getFirstName());
+                System.out.println(userEntity.getFirstName());
                 userEntity.setLastName(user.getLastName());
                 userEntity.setEmail(user.getEmail());
                 userEntity.setAddress(user.getAddress());
@@ -119,7 +122,7 @@ public class BeanConfiguration {
                 //userEntity.setUserType(user.getUserType());
                 userEntity.setDateCreated(user.getDateCreated());
 
-                System.out.println(userEntity.getId());
+
                 return userEntity;
             }
         };

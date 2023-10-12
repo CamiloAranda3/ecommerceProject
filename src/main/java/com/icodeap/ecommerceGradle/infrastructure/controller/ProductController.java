@@ -32,6 +32,7 @@ public class ProductController {
 
     @PostMapping("/save-product")
     public String saveProduct(Product product){
+
         log.info("Nombre de producto: {}", product);
         productService.saveProduct(product);
         //return "admin/products/create";
@@ -42,9 +43,8 @@ public class ProductController {
     @GetMapping("/show")
     public String showProduct(Model model){
 
-        User user = User.builder().identifier(Identifier.of(1)).build();
-
-        Iterable<Product> products = productService.getProductByUser(user);
+        //User user = User.builder().identifier(Identifier.of(1)).build();
+        Iterable<Product> products = productService.getProducts();
         model.addAttribute("products", products);
         return "admin/products/show";
     }
